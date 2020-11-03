@@ -17,10 +17,10 @@ She studied physics and astronomy, finishing her PhD in 2005. She worked in acad
 
 :round_pushpin: Zoom platform
 
-:point_right: [Registration :](https://lnkd.in/dA_7akh) In order to attend the event, please fill out [this form](https://tinyurl.com/y5brdnv2).
+:point_right: [Registration :](https://lnkd.in/dA_7akh) In order to attend the event, please fill out [this form](https://tinyurl.com/y5knq4l5).
 
 Those who fill out the form will receive an email shortly with instructions on how to join. Additionally you will get reminders right before the workshop with the link so you have it handy.
 
-:point_right: [More details](https://lnkd.in/dxTaHdB)
+:point_right: [More details](https://www.meetup.com/rladies-tunis/events/274142166/)
 
 📌📌 Flexdashboard about the analysis of the first 135 registrations for the keynote talk : Data Visualization for Machine Learning Practionners 👉 [link](https://rladiestunis.github.io/Keynote-talk-Data-Viz-for-Machine-Learning-Practionners/)
