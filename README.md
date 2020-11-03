@@ -23,4 +23,4 @@ Those who fill out the form will receive an email shortly with instructions on h
 
 :point_right: [More details](https://lnkd.in/dxTaHdB)
 
-📌📌 Flexdashboard about the analysis of the first 135 registrations for the keynote talk : Data Visualization for Machine Learning Practionners 👉 [link]()
+📌📌 Flexdashboard about the analysis of the first 135 registrations for the keynote talk : Data Visualization for Machine Learning Practionners 👉 [link](https://rladiestunis.github.io/Keynote-talk-Data-Viz-for-Machine-Learning-Practionners/)
