@@ -1,0 +1,124 @@
+---
+title: "Analysis of the first 135 registrations for the keynote talk : Data Visualization for Machine Learning Practionners"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    vertical_layout: scroll
+    social: menu
+    source_code: embed
+---
+
+<style>                     
+.navbar {
+  background-color:#62228C;
+  border-color:white;
+}
+.navbar-brand {
+color:white!important;
+}
+</style> 
+
+
+```{r setup, include=FALSE}
+# knitr::opts_chunk$set(include = FALSE)
+library(flexdashboard)
+library(readr)
+library(plotly)
+library(dplyr)
+library(stringr)
+library(wordcloud2)
+library(RColorBrewer)
+data <- read_delim("dist/data_Julia.csv", ",", escape_double = FALSE, trim_ws = TRUE)
+# data <- data[,-16]
+data[,c(2,3,6,7,14)] <- "NA"
+```
+
+Row
+-------------------------------------
+    
+### Evolution of daily registrations
+```{r}
+DT <- data %>% mutate(date = as.Date(data$Timestamp, "%d/%m/%Y")) %>% group_by(date) %>% summarise(n = n())
+plot_ly(DT, type = 'scatter', mode = 'lines+markers', x = DT$date, y = DT$n, 
+        marker = list(color = '#8856a7',width=6),
+        line = list(color = '#8856a7', width = 4), hoverinfo = "text",
+        text = ~paste(n, " registrations on ", date), showlegend = TRUE) %>% 
+        layout( yaxis = list(title = 'Number', showgrid = TRUE, zeroline = TRUE),
+          xaxis = list(title = '', showgrid = TRUE, zeroline = TRUE),
+          font = list(family = 'Arial', size = 14, color = '#003366'))
+```
+
+### Distribution of participants by age group and sex
+```{r}
+data %>% group_by(Age,Sexe) %>% summarise(n = n()) %>% 
+  mutate(freq = round(n/sum(n),3), freq_text = scales::percent(freq, accuracy = 0.1)) %>% 
+plot_ly(x = ~Age, y = ~n, color = ~Sexe,
+        texttemplate = '%{y}', textposition = 'outside',
+  hoverinfo = "text",colors = c("#dd1c77","#3182bd"),
+  text = ~paste(n, ': Number of participants',Sexe, 'whose age is', Age)) %>%
+  add_bars() %>% layout(yaxis = list(title = 'Number', showgrid = TRUE, zeroline = TRUE),
+         xaxis = list(title = 'Age', showgrid = TRUE, zeroline = TRUE),
+         font = list(family = 'Arial', size = 14, color = '#003366'))
+```
+
+Row
+-------------------------------------
+
+### Where are they from ?
+```{r}
+names(data)[8] <- "Country"
+data$Country <- str_replace(data$Country, "kenya", "Kenya")
+data$Country <- str_replace(data$Country, "Uk", "UK")
+data %>% group_by(Country) %>% summarise(n = n()) %>% 
+  mutate(freq = round(n/sum(n),3), freq_text = scales::percent(freq, accuracy = 0.1)) %>%
+  plot_ly(x = ~reorder(Country, -n), y = ~n,
+          texttemplate = '%{y}', textposition = 'outside',
+          hoverinfo = "text",
+          marker = list(color = '#dd1c77'),
+          text = ~paste(n, ': Number of participants from', Country)) %>%
+  add_bars() %>% layout(yaxis = list(title = 'Number', showgrid = TRUE, zeroline = TRUE),
+                        xaxis = list(title = '', showgrid = TRUE, zeroline = TRUE),
+                        font = list(family = 'Arial', size = 14, color = '#003366'))
+``` 
+
+### What's their work status ?
+```{r}
+names(data)[11] <- "work_status"
+data$work_status <- str_replace(data$work_status, "UPV", "Studying")
+data %>% group_by(work_status) %>% summarise(n = n()) %>% 
+  mutate(freq = round(n/sum(n),3), freq_text = scales::percent(freq, accuracy = 0.1)) %>%
+  plot_ly(x = ~work_status,y = ~n,
+          texttemplate = '%{y}', textposition = 'outside',
+          hoverinfo = "text",
+          marker = list(color = '#8856a7'),
+          text = ~paste(n, ': Number of participants')) %>%
+  add_bars() %>% layout(yaxis = list(title = 'Number', showgrid = TRUE, zeroline = TRUE),
+                        xaxis = list(title = '', showgrid = TRUE, zeroline = TRUE),
+                        font = list(family = 'Arial', size = 14, color = '#003366'))
+```
+
+Row
+-------------------------------------
+
+### What field do you work in?
+```{r}
+names(data)[12] <- "field"
+data$field <- str_replace(data$field, "Business admnistration", "Business Administration")
+dt <- as.data.frame(table(data$field))
+dt <- dt[!(dt$Var1 == "None"),]
+wordcloud2(data = dt, size = 3, color = 'random-dark', shape = 'pentagon')
+```
+
+### How did they find out about our event ?
+```{r}
+names(data)[13] <- "event"
+data %>% group_by(event) %>% summarise(n = n()) %>% 
+  mutate(freq = round(n/sum(n),3), freq_text = scales::percent(freq, accuracy = 0.1)) %>%
+  plot_ly(x = ~reorder(event, -n), y = ~n,
+          texttemplate = '%{y}', textposition = 'outside',
+          hoverinfo = "text", marker = list(color = '#dd1c77'),
+          text = ~paste(n, ': Number of participants')) %>%
+  add_bars() %>% layout(xaxis = list(title = '', showgrid = TRUE, zeroline = TRUE),
+                        yaxis = list(title = 'Number', showgrid = TRUE, zeroline = TRUE),
+                        font = list(family = 'Arial', size = 14, color = '#003366'))
+```
