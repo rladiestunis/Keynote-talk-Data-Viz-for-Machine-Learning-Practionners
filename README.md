@@ -1,9 +1,9 @@
-**Data Visualization for Machine Learning Practionners**
+**Data Visualization for Machine Learning Practitionners**
 
 :date: Saturday, November 7, 2020 
 
 
-We are delighted to come together with you to host another online meetup : Data Visualization for Machine Learning Practionners.
+We are delighted to come together with you to host another online meetup : Data Visualization for Machine Learning Practitionners.
 
 Invited speaker :
 
@@ -23,4 +23,4 @@ Those who fill out the form will receive an email shortly with instructions on h
 
 :point_right: [More details](https://www.meetup.com/rladies-tunis/events/274142166/)
 
-📌📌 Flexdashboard about the analysis of the first 135 registrations for the keynote talk : Data Visualization for Machine Learning Practionners 👉 [link](https://rladiestunis.github.io/Keynote-talk-Data-Viz-for-Machine-Learning-Practionners/)
+📌📌 Flexdashboard about the analysis of the first 135 registrations for the keynote talk : Data Visualization for Machine Learning Practitionners 👉 [link](https://rladiestunis.github.io/Keynote-talk-Data-Viz-for-Machine-Learning-Practionners/)
