@@ -1,5 +1,5 @@
 ---
-title: "Analysis of the first 135 registrations for the keynote talk : Data Visualization for Machine Learning Practionners"
+title: "Analysis of the first 135 registrations for the keynote talk : Data Visualization for Machine Learning Practitionners"
 output: 
   flexdashboard::flex_dashboard:
     orientation: rows
@@ -28,9 +28,7 @@ library(dplyr)
 library(stringr)
 library(wordcloud2)
 library(RColorBrewer)
-data <- read_delim("dist/data_Julia.csv", ",", escape_double = FALSE, trim_ws = TRUE)
-# data <- data[,-16]
-data[,c(2,3,6,7,14)] <- "NA"
+data <- read_delim("docs/dist/data_Julia.csv", ",", escape_double = FALSE, trim_ws = TRUE)
 ```
 
 Row
@@ -38,7 +36,7 @@ Row
     
 ### Evolution of daily registrations
 ```{r}
-DT <- data %>% mutate(date = as.Date(data$Timestamp, "%d/%m/%Y")) %>% group_by(date) %>% summarise(n = n())
+DT <- data %>% mutate(date = as.Date(data$Timestamp, "%d/%m/%Y")) %>% group_by(date) %>% summarise(n = n()) %>% ungroup()
 plot_ly(DT, type = 'scatter', mode = 'lines+markers', x = DT$date, y = DT$n, 
         marker = list(color = '#8856a7',width=6),
         line = list(color = '#8856a7', width = 4), hoverinfo = "text",
@@ -64,7 +62,7 @@ plot_ly(x = ~Age, y = ~n, color = ~Sexe,
 Row
 -------------------------------------
 
-### Where are they from ?
+### Where are you from ?
 ```{r}
 names(data)[8] <- "Country"
 data$Country <- str_replace(data$Country, "kenya", "Kenya")
@@ -81,7 +79,7 @@ data %>% group_by(Country) %>% summarise(n = n()) %>%
                         font = list(family = 'Arial', size = 14, color = '#003366'))
 ``` 
 
-### What's their work status ?
+### What's your work status ?
 ```{r}
 names(data)[11] <- "work_status"
 data$work_status <- str_replace(data$work_status, "UPV", "Studying")
@@ -109,7 +107,7 @@ dt <- dt[!(dt$Var1 == "None"),]
 wordcloud2(data = dt, size = 3, color = 'random-dark', shape = 'pentagon')
 ```
 
-### How did they find out about our event ?
+### How did you find out about our event ?
 ```{r}
 names(data)[13] <- "event"
 data %>% group_by(event) %>% summarise(n = n()) %>% 
